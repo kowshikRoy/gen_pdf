@@ -6,12 +6,20 @@ from pygments.lexers import get_lexer_by_name, guess_lexer
 from pygments.styles import get_style_by_name
 from pygments.token import Token
 
-def find_files(directory, extensions):
-    """Find all files in a directory with the given extensions."""
+def find_files(directory, extensions, exclude_suffixes=None):
+    """Find all files in a directory with the given extensions, excluding certain suffixes."""
+    if exclude_suffixes is None:
+        exclude_suffixes = []
+        
     for root, _, files in os.walk(directory):
         for file in files:
-            if file.endswith(tuple(extensions)):
-                yield os.path.join(root, file)
+            if not file.endswith(tuple(extensions)):
+                continue
+            
+            if any(file.endswith(suffix) for suffix in exclude_suffixes):
+                continue
+                
+            yield os.path.join(root, file)
 
 def hex_to_rgb(hex_color):
     """Convert a hex color string to an (r, g, b) tuple."""
@@ -99,10 +107,11 @@ def main():
     parser.add_argument("directory", help="The directory to scan for source code files.")
     parser.add_argument("-o", "--output", default="output.pdf", help="The name of the output PDF file.")
     parser.add_argument("-e", "--extensions", nargs='+', required=True, help="A list of file extensions to include (e.g., .py .js .html).")
+    parser.add_argument("--exclude-suffix", nargs='+', help="A list of file suffixes to exclude (e.g., _test.go .spec.js).")
     
     args = parser.parse_args()
     
-    files_to_process = list(find_files(args.directory, args.extensions))
+    files_to_process = list(find_files(args.directory, args.extensions, args.exclude_suffix))
     
     if not files_to_process:
         print("No files found with the specified extensions.")

@@ -20,7 +20,7 @@ This script generates a PDF file from source code files in a directory, with syn
 To generate a PDF, run the `gen_pdf.py` script with the following arguments:
 
 ```bash
-python gen_pdf.py <directory> -e <extensions> [-o <output_filename>]
+python gen_pdf.py <directory> -e <extensions> [-o <output_filename>] [--exclude-suffix <suffixes>]
 ```
 
 ### Arguments
@@ -28,10 +28,11 @@ python gen_pdf.py <directory> -e <extensions> [-o <output_filename>]
 -   `directory`: The path to the directory containing the source code files.
 -   `-e`, `--extensions`: A list of file extensions to include (e.g., `.py .js .html`).
 -   `-o`, `--output`: The name of the output PDF file (default: `output.pdf`).
+-   `--exclude-suffix`: A list of file suffixes to exclude (e.g., `_test.go .spec.js`).
 
 ### Example
 
-To generate a PDF named `my_project.pdf` from all `.py` and `.js` files in the `my_project` directory:
+To generate a PDF named `my_project.pdf` from all `.py` and `.js` files in the `my_project` directory, excluding test files:
 
 ```bash
-python gen_pdf.py ./my_project -e .py .js -o my_project.pdf
+python gen_pdf.py ./my_project -e .py .js -o my_project.pdf --exclude-suffix _test.py .test.js
