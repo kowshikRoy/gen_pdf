@@ -3,12 +3,20 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+
+# Virtual Environment
+bin/
+include/
+lib/
+share/
+pyvenv.cfg
 venv/
 env/
 
 # Generated files
 *.pdf
 temp_highlight.png
+dependency_graph.png
 
 # IDE / Editor specific
 .vscode/
