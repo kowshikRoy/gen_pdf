@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+env/
+
+# Generated files
+*.pdf
+temp_highlight.png
+
+# IDE / Editor specific
+.vscode/
+.idea/
